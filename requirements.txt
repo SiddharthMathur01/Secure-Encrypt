@@ -1,0 +1,8 @@
+Flask==3.0.0
+cryptography==41.0.7
+Werkzeug==3.0.1
+Pillow
+stepic
+dropbox
+requests
+zxcvbn

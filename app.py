@@ -15,7 +15,7 @@ from main import (
     sha256_hash
 )
 
-# Import logging utilities
+
 from logging_config import (
     app_logger,
     security_logger,
@@ -30,7 +30,7 @@ from logging_config import (
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024 
 
-# Disable default werkzeug logging
+
 import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)

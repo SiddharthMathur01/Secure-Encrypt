@@ -21,6 +21,7 @@ A military-grade encryption web application built with Python Flask that provide
 - **🔑 Passphrase Generator**: Built-in cryptographically secure passphrase generator (12-32 characters)
 - **📊 Password Strength Meter**: Real-time password strength analysis using zxcvbn
 - **🔒 Zero-Knowledge Architecture**: All encryption happens server-side but no data is stored
+- **📝 Comprehensive Logging**: Track operations, security events, and errors with detailed logs
 
 ### Security Features
 - **PBKDF2 Key Derivation**: 200,000 iterations with SHA-256
@@ -28,6 +29,7 @@ A military-grade encryption web application built with Python Flask that provide
 - **Authenticated Encryption**: GCM mode provides both confidentiality and authenticity
 - **Secure Key Handling**: Keys are derived and immediately deleted from memory
 - **No Storage**: Server never stores passphrases or decrypted content
+- **Security Audit Logging**: Monitor failed attempts, weak passwords, and suspicious activity
 
 ## 📋 Requirements
 
@@ -61,6 +63,32 @@ python app.py
 4. **Open your browser**
 ```
 http://127.0.0.1:5000
+```
+
+## 📁 Project Structure
+
+```
+Secure-Encrypt/
+├── app.py                      # Flask application & API endpoints
+├── main.py                     # Core encryption/decryption logic
+├── logging_config.py           # Logging configuration
+├── log_analyzer.py             # Log analysis tool
+├── requirements.txt            # Python dependencies
+├── .gitignore                  # Git ignore rules
+│
+├── templates/                  # HTML templates
+│   └── index.html             # Main web interface
+│
+├── static/                     # Static assets
+│   ├── css/
+│   │   └── styles.css         # Application styles
+│   └── js/
+│       └── app.js             # JavaScript functionality
+│
+└── logs/                       # Application logs (auto-created)
+    ├── app.log                # General application logs
+    ├── security.log           # Security events
+    └── error.log              # Error logs
 ```
 
 ## 💻 Usage
@@ -154,6 +182,41 @@ curl -X POST http://127.0.0.1:5000/steg/decrypt \
   --output revealed.txt
 ```
 
+## 📝 Logging System
+
+The application includes a comprehensive logging system that tracks all operations:
+
+### Log Files
+
+- **app.log**: General application activity, API requests, and user interactions
+- **security.log**: Security events, encryption/decryption operations, failed attempts
+- **error.log**: Errors and exceptions with full stack traces
+
+### Log Analysis
+
+Analyze application logs with the built-in tool:
+
+```bash
+python log_analyzer.py
+```
+
+This provides:
+- API request statistics
+- Encryption/decryption success rates
+- Security event monitoring
+- Error analysis
+- Time distribution of activity
+
+### What's Logged
+
+✅ Operation types and timestamps  
+✅ IP addresses  
+✅ Success/failure status  
+✅ File types and sizes  
+✅ Security events (weak passwords, failed attempts)  
+
+❌ **Never Logged**: Passphrases, plaintext content, decrypted data
+
 ## 🔐 Technical Details
 
 ### Encryption Algorithm
@@ -216,6 +279,7 @@ The application supports all file types, with MIME type detection for:
 3. **Input Validation**: All inputs are validated and sanitized
 4. **Memory Security**: Sensitive data is deleted from memory after use
 5. **Error Handling**: Generic error messages prevent information leakage
+6. **Monitor Logs**: Regularly review security logs for suspicious activity
 
 ## ⚙️ Configuration
 
@@ -236,6 +300,17 @@ PBKDF2_ITERATIONS = 200_000  # Increase for higher security
 SALT_LENGTH = 16      # 128 bits
 NONCE_LENGTH = 12     # 96 bits (GCM recommended)
 KEY_LENGTH = 32       # 256 bits
+```
+
+### Logging Configuration
+Modify log levels and rotation in `logging_config.py`:
+```python
+# Adjust log level (DEBUG, INFO, WARNING, ERROR)
+app_logger = setup_logger('app', APP_LOG_FILE, level=logging.INFO)
+
+# Adjust log rotation (10MB default)
+maxBytes=10 * 1024 * 1024
+backupCount=5
 ```
 
 ## 🎨 Features Overview
@@ -269,6 +344,13 @@ Set expiration times:
 
 Files cannot be decrypted after expiration.
 
+### Modern UI
+- Glassmorphism design
+- Dark theme optimized
+- Responsive for mobile devices
+- Smooth animations and transitions
+- Accessible keyboard navigation
+
 ## 🧪 Testing
 
 ### Test Encryption Functions
@@ -288,16 +370,15 @@ This runs built-in tests for:
 4. Verify decrypted content matches original
 5. Try decrypting with wrong passphrase (should fail)
 
-## 📁 Project Structure
+### Test Logging
+```bash
+# Run the application
+python app.py
 
-```
-Secure-Encrypt/
-├── app.py                 # Flask application & API endpoints
-├── main.py                # Core encryption/decryption logic
-├── requirements.txt       # Python dependencies
-├── templates/
-│   └── index.html        # Web interface
-└── README.md             # Documentation
+# Perform some operations
+
+# Analyze logs
+python log_analyzer.py
 ```
 
 ## 🔧 API Response Format
@@ -349,6 +430,7 @@ Contributions are welcome! Please follow these guidelines:
 - Performance optimizations
 - Security enhancements
 - Documentation improvements
+- Logging enhancements
 
 ## 📄 License
 
@@ -403,6 +485,14 @@ For security vulnerabilities, please contact privately before public disclosure.
 - Project: [Secure-Encrypt](https://github.com/SiddharthMathur01/Secure-Encrypt)
 
 ## 📈 Version History
+
+- **v2.0.0** - Major Update
+  - Separated CSS and JavaScript into external files
+  - Added comprehensive logging system
+  - Added log analysis tool
+  - Improved file structure and organization
+  - Enhanced security monitoring
+  - Better code maintainability
 
 - **v1.0.0** - Initial release
   - AES-256-GCM encryption

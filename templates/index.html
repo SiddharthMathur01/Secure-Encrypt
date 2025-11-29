@@ -6,358 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Encryption Tool</title>
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-color: #00f2ff;
-            --secondary-color: #7000ff;
-            --bg-dark: #0a0b14;
-            --card-bg: rgba(20, 22, 35, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-main: #e0e0e0;
-            --text-muted: #8f9bb3;
-            --success: #00ff9d;
-            --danger: #ff4757;
-            --warning: #ffa502;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
-            background-image:
-                radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.15), transparent 25%);
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #2d3446;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4a5570;
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        .main-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-   
-        .app-header {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .app-title {
-            font-weight: 700;
-            font-size: 3rem;
-            background: linear-gradient(135deg, #fff 0%, var(--primary-color) 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
-
-        .app-subtitle {
-            color: var(--text-muted);
-            font-weight: 300;
-            font-size: 1.1rem;
-        }
-
-        .feature-badges {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .badge-glass {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
-        }
-
-        .badge-glass:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            transform: translateY(-2px);
-            border-color: var(--primary-color);
-        }
-
-
-        .nav-pills {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 6px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-pills .nav-link {
-            color: var(--text-muted);
-            border-radius: 12px;
-            padding: 12px 24px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .nav-pills .nav-link:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-pills .nav-link.active {
-            background: linear-gradient(135deg, var(--secondary-color), #9d4edd);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.4);
-        }
-
-
-        .form-control,
-        .form-select {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 14px 18px;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            background: rgba(0, 0, 0, 0.3);
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.1);
-            color: #fff;
-        }
-
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        textarea.form-control {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-        }
-
-        .form-label {
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, #9d4edd 100%);
-            border: none;
-            padding: 14px 30px;
-            border-radius: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(112, 0, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(112, 0, 255, 0.5);
-            background: linear-gradient(135deg, #8022ff 0%, #aa60e6 100%);
-        }
-
-        .btn-outline-primary {
-            color: var(--text-main);
-            border-color: var(--glass-border);
-            background: rgba(255, 255, 255, 0.02);
-            padding: 10px 20px;
-            border-radius: 12px;
-        }
-
-        .btn-outline-primary:hover,
-        .btn-check:checked+.btn-outline-primary {
-            background: rgba(0, 242, 255, 0.1);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
-        }
-
-  
-        .file-drop-zone {
-            border: 2px dashed var(--glass-border);
-            border-radius: 16px;
-            padding: 40px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .file-drop-zone:hover,
-        .file-drop-zone.dragover {
-            border-color: var(--primary-color);
-            background: rgba(0, 242, 255, 0.05);
-            transform: scale(1.01);
-        }
-
-        .drop-icon {
-            font-size: 3rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .file-drop-zone:hover .drop-icon {
-            color: var(--primary-color);
-            transform: translateY(-5px);
-        }
-
-    
-        .password-strength-meter {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-
-        .password-strength-bar {
-            height: 100%;
-            width: 0;
-            transition: all 0.3s ease;
-        }
-
-        .advanced-options {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .hash-display {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            background: rgba(0, 255, 157, 0.05);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            color: var(--success);
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            word-break: break-all;
-        }
-
-        .passphrase-generator {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .generated-passphrase {
-            font-family: 'JetBrains Mono', monospace;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            color: var(--primary-color);
-            font-weight: 600;
-            margin: 15px 0;
-            text-align: center;
-            border: 1px dashed var(--glass-border);
-        }
-
-
-        .alert {
-            background: rgba(20, 22, 35, 0.9);
-            backdrop-filter: blur(10px);
-            border: none;
-            border-left: 4px solid;
-            color: #fff;
-            border-radius: 8px;
-        }
-
-        .alert-success {
-            border-color: var(--success);
-        }
-
-        .alert-danger {
-            border-color: var(--danger);
-        }
-
-        .alert-info {
-            border-color: var(--primary-color);
-        }
-
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .tab-pane {
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        .form-range::-webkit-slider-thumb {
-            background: var(--primary-color);
-        }
-
-        .form-check-input:checked {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body>
@@ -377,7 +38,7 @@
 
         <div class="glass-card p-4 p-md-5">
 
- 
+            <!-- Navigation Tabs -->
             <ul class="nav nav-pills nav-fill" id="mainTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="encrypt-tab" data-bs-toggle="pill" data-bs-target="#encrypt"
@@ -398,12 +59,13 @@
                 </li>
             </ul>
 
-
+            <!-- Tab Content -->
             <div class="tab-content" id="mainTabsContent">
 
+                <!-- ENCRYPT TAB -->
                 <div class="tab-pane fade show active" id="encrypt" role="tabpanel">
 
-                    
+                    <!-- Mode Selection -->
                     <div class="d-flex justify-content-center mb-4">
                         <div class="btn-group" role="group">
                             <input type="radio" class="btn-check" name="encrypt-mode" id="encrypt-text-mode" checked>
@@ -418,7 +80,7 @@
                         </div>
                     </div>
 
-
+                    <!-- Text Encryption Section -->
                     <div id="encrypt-text-section">
                         <div class="mb-3">
                             <label class="form-label">Plaintext</label>
@@ -427,7 +89,7 @@
                         </div>
                     </div>
 
-
+                    <!-- File Encryption Section -->
                     <div id="encrypt-file-section" style="display: none;">
                         <div class="file-drop-zone mb-4" id="encrypt-drop-zone">
                             <i class="bi bi-cloud-upload drop-icon"></i>
@@ -438,7 +100,7 @@
                         <div id="encrypt-file-preview" class="mb-3"></div>
                     </div>
 
-
+                    <!-- Passphrase Section -->
                     <div class="row g-4">
                         <div class="col-md-6">
                             <label class="form-label">Passphrase</label>
@@ -478,7 +140,7 @@
                         </button>
                     </div>
 
-
+                    <!-- Advanced Options -->
                     <div class="mt-4">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="show-advanced-encrypt">
@@ -504,12 +166,12 @@
                         </div>
                     </div>
 
-          
+                    <!-- Encrypt Button -->
                     <button class="btn btn-primary w-100 mt-4" id="encrypt-btn">
                         <i class="bi bi-lock-fill me-2"></i>Encrypt Now
                     </button>
 
-             
+                    <!-- Alert Display -->
                     <div id="encrypt-alert" class="mt-3" style="display: none;"></div>
 
                     <div id="encrypt-hash-display" class="hash-display" style="display: none;">
@@ -520,7 +182,7 @@
                     </div>
                 </div>
 
-        
+                <!-- DECRYPT TAB -->
                 <div class="tab-pane fade" id="decrypt" role="tabpanel">
 
                     <div class="d-flex justify-content-center mb-4">
@@ -649,425 +311,14 @@
         </footer>
     </div>
 
-
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- zxcvbn Password Strength -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 
-    <script>
-  
-        function showAlert(elementId, message, type = 'success') {
-            const el = document.getElementById(elementId);
-            el.className = `alert alert-${type} mt-3`;
-            el.innerHTML = `<i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i> ${message}`;
-            el.style.display = 'block';
-
-       
-            setTimeout(() => {
-                el.style.display = 'none';
-            }, 5000);
-        }
-
-  
-        document.querySelectorAll('input[name="encrypt-mode"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.id === 'encrypt-text-mode') {
-                    document.getElementById('encrypt-text-section').style.display = 'block';
-                    document.getElementById('encrypt-file-section').style.display = 'none';
-                } else {
-                    document.getElementById('encrypt-text-section').style.display = 'none';
-                    document.getElementById('encrypt-file-section').style.display = 'block';
-                }
-            });
-        });
-
-        document.querySelectorAll('input[name="decrypt-mode"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.id === 'decrypt-text-mode') {
-                    document.getElementById('decrypt-text-section').style.display = 'block';
-                    document.getElementById('decrypt-file-section').style.display = 'none';
-                } else {
-                    document.getElementById('decrypt-text-section').style.display = 'none';
-                    document.getElementById('decrypt-file-section').style.display = 'block';
-                }
-            });
-        });
-
-        document.querySelectorAll('input[name="steg-mode"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.id === 'steg-hide-mode') {
-                    document.getElementById('steg-hide-section').style.display = 'block';
-                    document.getElementById('steg-reveal-section').style.display = 'none';
-                } else {
-                    document.getElementById('steg-hide-section').style.display = 'none';
-                    document.getElementById('steg-reveal-section').style.display = 'block';
-                }
-            });
-        });
-
-
-        document.getElementById('show-advanced-encrypt').addEventListener('change', (e) => {
-            document.getElementById('advanced-encrypt-options').style.display = e.target.checked ? 'block' : 'none';
-        });
-
-        document.getElementById('enable-expiry').addEventListener('change', (e) => {
-            document.getElementById('expiry-options').style.display = e.target.checked ? 'block' : 'none';
-        });
-
-        const lengthSlider = document.getElementById('pass-gen-length');
-        const lengthDisplay = document.getElementById('pass-gen-length-display');
-
-        lengthSlider.addEventListener('input', (e) => {
-            lengthDisplay.textContent = `${e.target.value} chars`;
-        });
-
-        document.getElementById('generate-passphrase-btn').addEventListener('click', () => {
-            const length = parseInt(lengthSlider.value);
-            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
-            let retVal = "";
-            for (let i = 0, n = charset.length; i < length; ++i) {
-                retVal += charset.charAt(Math.floor(Math.random() * n));
-            }
-
-            const display = document.getElementById('generated-passphrase-display');
-            const text = document.getElementById('generated-passphrase-text');
-
-            display.style.display = 'block';
-            text.textContent = retVal;
-            window.generatedPassphrase = retVal;
-        });
-
-        function useGeneratedPassphrase() {
-            if (window.generatedPassphrase) {
-                document.getElementById('encrypt-passphrase').value = window.generatedPassphrase;
-                document.getElementById('encrypt-passphrase').dispatchEvent(new Event('input'));
-                document.getElementById('generated-passphrase-display').style.display = 'none';
-            }
-        }
-
-        document.getElementById('encrypt-passphrase').addEventListener('input', function () {
-            const val = this.value;
-            const result = zxcvbn(val);
-            const bar = document.getElementById('encrypt-strength-bar');
-            const text = document.getElementById('encrypt-strength-text');
-
-            const colors = ['#ff4757', '#ff6b81', '#ffa502', '#2ed573', '#00ff9d'];
-            const widths = ['20%', '40%', '60%', '80%', '100%'];
-            const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
-
-            if (val.length === 0) {
-                bar.style.width = '0%';
-                text.textContent = 'Strength: Too short';
-            } else {
-                bar.style.width = widths[result.score];
-                bar.style.backgroundColor = colors[result.score];
-                text.textContent = `Strength: ${labels[result.score]}`;
-            }
-        });
-
- 
-        ['encrypt', 'decrypt'].forEach(type => {
-            document.getElementById(`toggle-${type}-pass`).addEventListener('click', function () {
-                const input = document.getElementById(`${type}-passphrase`);
-                const icon = this.querySelector('i');
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.classList.replace('bi-eye', 'bi-eye-slash');
-                } else {
-                    input.type = 'password';
-                    icon.classList.replace('bi-eye-slash', 'bi-eye');
-                }
-            });
-        });
-
-        function setupDropZone(zoneId, inputId, previewId) {
-            const zone = document.getElementById(zoneId);
-            const input = document.getElementById(inputId);
-            const preview = document.getElementById(previewId);
-
-            zone.addEventListener('click', () => input.click());
-
-            input.addEventListener('change', () => handleFiles(input.files));
-
-            zone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                zone.classList.add('dragover');
-            });
-
-            zone.addEventListener('dragleave', () => {
-                zone.classList.remove('dragover');
-            });
-
-            zone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                zone.classList.remove('dragover');
-                input.files = e.dataTransfer.files;
-                handleFiles(input.files);
-            });
-
-            function handleFiles(files) {
-                if (files.length > 0) {
-                    let html = `<div class="d-flex flex-wrap gap-2">`;
-                    Array.from(files).forEach(file => {
-                        html += `
-                            <div class="badge bg-secondary p-2 d-flex align-items-center">
-                                <i class="bi bi-file-earmark me-2"></i>
-                                ${file.name}
-                                <span class="ms-2 opacity-50">(${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
-                            </div>`;
-                    });
-                    html += `</div>`;
-                    preview.innerHTML = html;
-                }
-            }
-        }
-
-        setupDropZone('encrypt-drop-zone', 'encrypt-file-input', 'encrypt-file-preview');
-        setupDropZone('decrypt-drop-zone', 'decrypt-file-input', 'decrypt-file-preview');
-
-
-        document.getElementById('encrypt-btn').addEventListener('click', async () => {
-            const mode = document.querySelector('input[name="encrypt-mode"]:checked').id;
-            const passphrase = document.getElementById('encrypt-passphrase').value;
-
-            if (mode === 'encrypt-text-mode') {
-                const plaintext = document.getElementById('plaintext').value;
-
-                try {
-                    const res = await fetch('/encrypt/text', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ plaintext, passphrase })
-                    });
-                    const data = await res.json();
-
-                    if (data.success) {
-                        document.getElementById('plaintext').value = data.encrypted;
-                        showAlert('encrypt-alert', 'Text encrypted successfully! Content replaced above.');
-                    } else {
-                        showAlert('encrypt-alert', data.error, 'danger');
-                    }
-                } catch (e) {
-                    showAlert('encrypt-alert', 'Network error occurred', 'danger');
-                }
-            } else {
- 
-                const fileInput = document.getElementById('encrypt-file-input');
-                const useExpiry = document.getElementById('enable-expiry').checked;
-
-                if (fileInput.files.length === 0) {
-                    showAlert('encrypt-alert', 'Please select a file', 'danger');
-                    return;
-                }
-
-                const formData = new FormData();
-                formData.append('passphrase', passphrase);
-
-                let endpoint = '/encrypt/file';
-
-                if (fileInput.files.length > 1) {
-                    endpoint = '/encrypt/batch';
-                    Array.from(fileInput.files).forEach(f => formData.append('files', f));
-                } else {
-                    if (useExpiry) {
-                        endpoint = '/encrypt/file_with_expiry';
-                        formData.append('expire_minutes', document.getElementById('expiry-time').value);
-                    }
-                    formData.append('file', fileInput.files[0]);
-                }
-
-                try {
-                    const res = await fetch(endpoint, {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (res.ok) {
-                        const blob = await res.blob();
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        // Get filename from header or default
-                        const contentDisp = res.headers.get('Content-Disposition');
-                        let filename = 'encrypted_file';
-                        if (contentDisp && contentDisp.indexOf('filename=') !== -1) {
-                            filename = contentDisp.split('filename=')[1].replace(/"/g, '');
-                        }
-                        a.download = filename;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        showAlert('encrypt-alert', 'File encrypted and downloaded!');
-                    } else {
-                        const data = await res.json();
-                        showAlert('encrypt-alert', data.error || 'Encryption failed', 'danger');
-                    }
-                } catch (e) {
-                    showAlert('encrypt-alert', 'Network error', 'danger');
-                }
-            }
-        });
-
-
-        document.getElementById('decrypt-btn').addEventListener('click', async () => {
-            const mode = document.querySelector('input[name="decrypt-mode"]:checked').id;
-            const passphrase = document.getElementById('decrypt-passphrase').value;
-
-            if (mode === 'decrypt-text-mode') {
-                const encrypted = document.getElementById('encrypted-text').value;
-
-                try {
-                    const res = await fetch('/decrypt/text', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ encrypted, passphrase })
-                    });
-                    const data = await res.json();
-
-                    if (data.success) {
-                        document.getElementById('encrypted-text').value = data.plaintext;
-                        showAlert('decrypt-alert', 'Text decrypted successfully! Content revealed above.');
-                    } else {
-                        showAlert('decrypt-alert', data.error, 'danger');
-                    }
-                } catch (e) {
-                    showAlert('decrypt-alert', 'Network error', 'danger');
-                }
-            } else {
-
-                const fileInput = document.getElementById('decrypt-file-input');
-
-                if (fileInput.files.length === 0) {
-                    showAlert('decrypt-alert', 'Please select a file', 'danger');
-                    return;
-                }
-
-                const formData = new FormData();
-                formData.append('passphrase', passphrase);
-                formData.append('file', fileInput.files[0]);
-
-                let endpoint = '/decrypt/file';
-                if (fileInput.files[0].name.includes('.expiring')) {
-                    endpoint = '/decrypt/file_with_expiry';
-                }
-
-                try {
-                    const res = await fetch(endpoint, {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (res.ok) {
-                        const blob = await res.blob();
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        const contentDisp = res.headers.get('Content-Disposition');
-                        let filename = 'decrypted_file';
-                        if (contentDisp && contentDisp.indexOf('filename=') !== -1) {
-                            filename = contentDisp.split('filename=')[1].replace(/"/g, '');
-                        }
-                        a.download = filename;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        showAlert('decrypt-alert', 'File decrypted and downloaded!');
-                    } else {
-                        const data = await res.json();
-                        showAlert('decrypt-alert', data.error || 'Decryption failed', 'danger');
-                    }
-                } catch (e) {
-                    showAlert('decrypt-alert', 'Network error', 'danger');
-                }
-            }
-        });
-
-
-        document.getElementById('steg-hide-btn').addEventListener('click', async () => {
-            const image = document.getElementById('steg-cover-image').files[0];
-            const file = document.getElementById('steg-secret-file').files[0];
-            const passphrase = document.getElementById('steg-hide-passphrase').value;
-
-            if (!image || !file || !passphrase) {
-                showAlert('steg-alert', 'All fields are required', 'danger');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('image', image);
-            formData.append('file', file);
-            formData.append('passphrase', passphrase);
-
-            try {
-                const res = await fetch('/steg/encrypt', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (res.ok) {
-                    const blob = await res.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'stego_image.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    showAlert('steg-alert', 'Data hidden in image successfully!');
-                } else {
-                    const data = await res.json();
-                    showAlert('steg-alert', data.error, 'danger');
-                }
-            } catch (e) {
-                showAlert('steg-alert', 'Network error', 'danger');
-            }
-        });
-
-        document.getElementById('steg-reveal-btn').addEventListener('click', async () => {
-            const image = document.getElementById('steg-image').files[0];
-            const passphrase = document.getElementById('steg-reveal-passphrase').value;
-            const filename = document.getElementById('steg-filename').value;
-
-            if (!image || !passphrase) {
-                showAlert('steg-alert', 'Image and passphrase are required', 'danger');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('image', image);
-            formData.append('passphrase', passphrase);
-            if (filename) formData.append('filename', filename);
-
-            try {
-                const res = await fetch('/steg/decrypt', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (res.ok) {
-                    const blob = await res.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    const contentDisp = res.headers.get('Content-Disposition');
-                    let fname = 'revealed_file';
-                    if (contentDisp && contentDisp.indexOf('filename=') !== -1) {
-                        fname = contentDisp.split('filename=')[1].replace(/"/g, '');
-                    }
-                    a.download = fname;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    showAlert('steg-alert', 'Data revealed successfully!');
-                } else {
-                    const data = await res.json();
-                    showAlert('steg-alert', data.error, 'danger');
-                }
-            } catch (e) {
-                showAlert('steg-alert', 'Network error', 'danger');
-            }
-        });
-
-    </script>
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 
 </html>

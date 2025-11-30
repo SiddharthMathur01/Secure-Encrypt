@@ -5,11 +5,13 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.exceptions import InvalidTag
+from concurrent.futures import ThreadPoolExecutor
+import numpy as np
 
 
-SALT_LENGTH = 16  # 128 bits
-NONCE_LENGTH = 12  # 96 bits (recommended for AES-GCM)
-KEY_LENGTH = 32  # 256 bits
+SALT_LENGTH = 16
+NONCE_LENGTH = 12
+KEY_LENGTH = 32
 PBKDF2_ITERATIONS = 200_000
 ENVELOPE_HEADER = b"ENCV1"
 
@@ -131,11 +133,25 @@ def is_supported_file_type(filename: str) -> bool:
 def sha256_hash(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
+def _encode_chunk(args):
+    chunk_data, chunk_index, pixels_array = args
+    start_idx = chunk_index * 8
+    for i, bit in enumerate(chunk_data):
+        if start_idx + i < len(pixels_array):
+            pixels_array[start_idx + i] = (pixels_array[start_idx + i] & 0xFE) | int(bit)
+    return chunk_index, pixels_array[start_idx:start_idx + 8]
+
+def _decode_chunk(args):
+    start_idx, chunk_size, pixels_array = args
+    bits = []
+    for i in range(start_idx, min(start_idx + chunk_size, len(pixels_array))):
+        bits.append(str(pixels_array[i] & 1))
+    return start_idx, ''.join(bits)
+
 def hide_in_image(image_bytes: bytes, data_bytes: bytes) -> bytes:
     try:
         from PIL import Image
         from io import BytesIO
-        import stepic
         
         img = Image.open(BytesIO(image_bytes))
         
@@ -143,14 +159,44 @@ def hide_in_image(image_bytes: bytes, data_bytes: bytes) -> bytes:
             img = img.convert('RGB')
         
         data_str = base64.b64encode(data_bytes).decode('ascii')
-        img_encoded = stepic.encode(img, data_str.encode('utf-8'))
+        binary_data = ''.join(format(ord(char), '08b') for char in data_str)
+        
+        delimiter = '1111111111111110'
+        binary_data_with_delimiter = binary_data + delimiter
+        
+        pixels = np.array(img)
+        original_shape = pixels.shape
+        pixels_flat = pixels.flatten()
+        
+        if len(binary_data_with_delimiter) > len(pixels_flat):
+            raise EncryptionError("Data too large for image capacity")
+        
+        num_threads = min(4, os.cpu_count() or 1)
+        chunk_size = 8 * 1024
+        num_chunks = (len(binary_data_with_delimiter) + chunk_size - 1) // chunk_size
+        
+        chunks = []
+        for i in range(num_chunks):
+            start = i * chunk_size
+            end = min(start + chunk_size, len(binary_data_with_delimiter))
+            chunks.append((binary_data_with_delimiter[start:end], i, pixels_flat))
+        
+        with ThreadPoolExecutor(max_workers=num_threads) as executor:
+            results = list(executor.map(_encode_chunk, chunks))
+        
+        for chunk_index, modified_pixels in results:
+            start_idx = chunk_index * 8
+            pixels_flat[start_idx:start_idx + len(modified_pixels)] = modified_pixels
+        
+        pixels_modified = pixels_flat.reshape(original_shape)
+        img_encoded = Image.fromarray(pixels_modified.astype('uint8'), 'RGB')
         
         out_bytes = BytesIO()
         img_encoded.save(out_bytes, format='PNG')
         return out_bytes.getvalue()
     
     except ImportError:
-        raise EncryptionError("Steganography library not installed. Install with: pip install stepic")
+        raise EncryptionError("Pillow library not installed. Install with: pip install Pillow")
     except Exception as e:
         raise EncryptionError(f"Steganography encoding failed: {str(e)}")
 
@@ -158,14 +204,48 @@ def extract_from_image(image_bytes: bytes) -> bytes:
     try:
         from PIL import Image
         from io import BytesIO
-        import stepic
         
         img = Image.open(BytesIO(image_bytes))
-        data_str = stepic.decode(img)
+        pixels = np.array(img)
+        pixels_flat = pixels.flatten()
+        
+        delimiter = '1111111111111110'
+        delimiter_length = len(delimiter)
+        
+        num_threads = min(4, os.cpu_count() or 1)
+        chunk_size = 8 * 1024
+        max_bits = len(pixels_flat)
+        num_chunks = (max_bits + chunk_size - 1) // chunk_size
+        
+        chunks = []
+        for i in range(num_chunks):
+            start = i * chunk_size
+            end = min(start + chunk_size, max_bits)
+            chunks.append((start, end - start, pixels_flat))
+        
+        with ThreadPoolExecutor(max_workers=num_threads) as executor:
+            results = list(executor.map(_decode_chunk, chunks))
+        
+        results.sort(key=lambda x: x[0])
+        binary_data = ''.join(result[1] for result in results)
+        
+        delimiter_index = binary_data.find(delimiter)
+        if delimiter_index == -1:
+            raise DecryptionError("No hidden data found in image")
+        
+        binary_data = binary_data[:delimiter_index]
+        
+        chars = []
+        for i in range(0, len(binary_data), 8):
+            byte = binary_data[i:i+8]
+            if len(byte) == 8:
+                chars.append(chr(int(byte, 2)))
+        
+        data_str = ''.join(chars)
         return base64.b64decode(data_str)
     
     except ImportError:
-        raise DecryptionError("Steganography library not installed. Install with: pip install stepic")
+        raise DecryptionError("Pillow library not installed. Install with: pip install Pillow")
     except Exception as e:
         raise DecryptionError(f"Steganography decoding failed: {str(e)}")
 
@@ -199,4 +279,3 @@ if __name__ == "__main__":
     print("--- Testing SHA-256 hash ---")
     hash_val = sha256_hash(test_file_content)
     print(f"SHA-256: {hash_val}\n")
-    

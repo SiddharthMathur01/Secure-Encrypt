@@ -1,4 +1,4 @@
-# 🔐 Secure-Encrypt
+# Secure-Encrypt
 
 A military-grade encryption web application built with Python Flask that provides robust file and text encryption using AES-256-GCM authenticated encryption with multithreaded steganography for optimal performance.
 
@@ -7,7 +7,7 @@ A military-grade encryption web application built with Python Flask that provide
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Encryption](https://img.shields.io/badge/encryption-AES--256--GCM-red.svg)](https://en.wikipedia.org/wiki/Galois/Counter_Mode)
 
-## ✨ Features
+## Features
 
 ### Core Encryption
 - **AES-256-GCM Encryption**: Military-grade authenticated encryption with integrity verification
@@ -16,14 +16,14 @@ A military-grade encryption web application built with Python Flask that provide
 - **Batch Processing**: Encrypt multiple files at once, downloaded as a ZIP archive
 
 ### Advanced Features
-- **🕐 Self-Destruct (Expiry)**: Set time-based expiration on encrypted files (30 minutes to 7 days)
-- **🖼️ Steganography**: Hide encrypted files inside images using LSB steganography with multithreading
-- **⚡ Multithreaded Processing**: 3-5x faster steganography operations using parallel processing
-- **🔑 Passphrase Generator**: Built-in cryptographically secure passphrase generator (12-32 characters)
-- **📊 Password Strength Meter**: Real-time password strength analysis using zxcvbn
-- **🔒 Zero-Knowledge Architecture**: All encryption happens server-side but no data is stored
-- **📝 Comprehensive Logging**: Track operations, security events, and errors with detailed logs
-- **📈 Log Analytics**: Built-in log analyzer for monitoring and statistics
+- **Self-Destruct (Expiry)**: Set time-based expiration on encrypted files (30 minutes to 7 days)
+- **Steganography**: Hide encrypted files inside images using LSB steganography with multithreading
+- **Multithreaded Processing**: 3-5x faster steganography operations using parallel processing
+- **Passphrase Generator**: Built-in cryptographically secure passphrase generator (12-32 characters)
+- **Password Strength Meter**: Real-time password strength analysis using zxcvbn
+- **Zero-Knowledge Architecture**: All encryption happens server-side but no data is stored
+- **Comprehensive Logging**: Track operations, security events, and errors with detailed logs
+- **Log Analytics**: Built-in log analyzer for monitoring and statistics
 
 ### Security Features
 - **PBKDF2 Key Derivation**: 200,000 iterations with SHA-256
@@ -40,7 +40,7 @@ A military-grade encryption web application built with Python Flask that provide
 - **Parallel Processing**: Automatic multi-core CPU utilization
 - **Efficient Memory Usage**: Chunked processing for large files
 
-## 📋 Requirements
+## Requirements
 
 - Python 3.7+
 - Flask 3.0.0
@@ -49,7 +49,7 @@ A military-grade encryption web application built with Python Flask that provide
 - NumPy (for multithreaded steganography)
 - zxcvbn (for password strength)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -74,7 +74,7 @@ python app.py
 http://127.0.0.1:5000
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Secure-Encrypt/
@@ -101,26 +101,26 @@ Secure-Encrypt/
     └── error.log              # Error logs
 ```
 
-## 💻 Usage
+## Usage
 
 ### Web Interface
 
 The application provides a beautiful, modern web interface with three main tabs:
 
-#### 🔒 Encrypt Tab
+#### Encrypt Tab
 1. Choose between **Text** or **File(s)** mode
 2. Enter your sensitive data or select files
 3. Create a strong passphrase (or generate one)
 4. Optional: Enable self-destruct with expiration time
 5. Click **Encrypt Now**
 
-#### 🔓 Decrypt Tab
+#### Decrypt Tab
 1. Choose between **Text** or **File** mode
 2. Paste encrypted text or upload encrypted file
 3. Enter the original passphrase
 4. Click **Decrypt Now**
 
-#### 👁️ Steganography Tab
+#### Steganography Tab
 - **Hide Mode**: Conceal encrypted files inside cover images (now 3-5x faster!)
 - **Reveal Mode**: Extract and decrypt hidden files from stego images
 
@@ -192,7 +192,7 @@ curl -X POST http://127.0.0.1:5000/steg/decrypt \
   --output revealed.txt
 ```
 
-## 📝 Logging System
+## Logging System
 
 The application includes a comprehensive logging system that tracks all operations:
 
@@ -219,15 +219,15 @@ This provides:
 
 ### What's Logged
 
-✅ Operation types and timestamps  
-✅ IP addresses  
-✅ Success/failure status  
-✅ File types and sizes  
-✅ Security events (weak passwords, failed attempts)  
+- Operation types and timestamps  
+- IP addresses  
+- Success/failure status  
+- File types and sizes  
+- Security events (weak passwords, failed attempts)  
 
-❌ **Never Logged**: Passphrases, plaintext content, decrypted data
+**Never Logged**: Passphrases, plaintext content, decrypted data
 
-## ⚡ Performance Benchmarks
+## Performance Benchmarks
 
 ### Steganography Operations (Multithreaded)
 
@@ -245,7 +245,7 @@ This provides:
 - **Recommended**: 4+ CPU cores, 4GB+ RAM
 - **Best**: 8+ CPU cores, 8GB+ RAM
 
-## 🔐 Technical Details
+## Technical Details
 
 ### Encryption Algorithm
 
@@ -301,7 +301,7 @@ The application supports all file types, with MIME type detection for:
 - Archives: ZIP, RAR, 7Z, TAR, GZ
 - Data: JSON, XML, CSV
 
-## 🛡️ Security Best Practices
+## Security Best Practices
 
 ### For Users
 1. **Use Strong Passphrases**: Minimum 12 characters with mixed case, numbers, and symbols
@@ -318,7 +318,7 @@ The application supports all file types, with MIME type detection for:
 5. **Error Handling**: Generic error messages prevent information leakage
 6. **Monitor Logs**: Regularly review security logs for suspicious activity
 
-## ⚙️ Configuration
+## Configuration
 
 ### File Size Limits
 Default maximum file size is 50MB. Modify in `app.py`:
@@ -360,7 +360,7 @@ num_threads = min(4, os.cpu_count() or 1)
 num_threads = min(8, os.cpu_count() or 1)
 ```
 
-## 🎨 Features Overview
+## Features Overview
 
 ### Password Strength Meter
 Real-time analysis using the zxcvbn algorithm:
@@ -399,7 +399,7 @@ Files cannot be decrypted after expiration.
 - Accessible keyboard navigation
 - Separated CSS and JavaScript for maintainability
 
-## 🧪 Testing
+## Testing
 
 ### Test Encryption Functions
 ```bash
@@ -446,7 +446,7 @@ print(f'Time: {time.time() - start:.2f}s')
 "
 ```
 
-## 🔧 API Response Format
+## API Response Format
 
 ### Success Response
 ```json
@@ -464,7 +464,7 @@ print(f'Time: {time.time() - start:.2f}s')
 }
 ```
 
-## ⚠️ Important Notes
+## Important Notes
 
 ### Security Warnings
 - **Lost Passphrases Cannot Be Recovered**: There is no passphrase recovery mechanism
@@ -484,7 +484,7 @@ print(f'Time: {time.time() - start:.2f}s')
 - Use consistent version for hiding and extracting data
 - All other encryption features remain backward compatible
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these guidelines:
 
@@ -505,15 +505,15 @@ Contributions are welcome! Please follow these guidelines:
 - Logging enhancements
 - Unit tests and integration tests
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔒 Cryptographic Notice
+## Cryptographic Notice
 
 This software uses strong cryptography. Before using this software, please check your country's laws, regulations, and policies concerning the import, possession, or use, and re-export of encryption software, to ensure compliance.
 
-## ⚖️ Legal Disclaimer
+## Legal Disclaimer
 
 This tool is provided for legitimate encryption purposes only. Users are responsible for:
 - Complying with all applicable laws and regulations
@@ -526,7 +526,7 @@ The developers assume no liability for:
 - Misuse of the software
 - Legal consequences of use in restricted jurisdictions
 
-## 🐛 Bug Reports & Security Issues
+## Bug Reports & Security Issues
 
 ### General Bugs
 Report bugs via GitHub Issues:
@@ -535,7 +535,7 @@ Report bugs via GitHub Issues:
 ### Security Vulnerabilities
 For security vulnerabilities, please contact privately before public disclosure.
 
-## 📚 Resources & References
+## Resources & References
 
 - [AES-GCM Specification](https://csrc.nist.gov/publications/detail/sp/800-38d/final)
 - [PBKDF2 RFC 2898](https://tools.ietf.org/html/rfc2898)
@@ -544,7 +544,7 @@ For security vulnerabilities, please contact privately before public disclosure.
 - [LSB Steganography](https://en.wikipedia.org/wiki/Bit_numbering)
 - [ThreadPoolExecutor Documentation](https://docs.python.org/3/library/concurrent.futures.html)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Flask framework and contributors
 - Python Cryptography library team
@@ -554,13 +554,13 @@ For security vulnerabilities, please contact privately before public disclosure.
 - Pillow for image processing
 - Open-source security community
 
-## 👤 Author
+## Author
 
 **Siddharth Mathur**
 - GitHub: [@SiddharthMathur01](https://github.com/SiddharthMathur01)
 - Project: [Secure-Encrypt](https://github.com/SiddharthMathur01/Secure-Encrypt)
 
-## 📈 Version History
+## Version History
 
 - **v2.1.0** - Performance Update (Current)
   - Added multithreaded steganography (3-5x faster)
@@ -588,8 +588,8 @@ For security vulnerabilities, please contact privately before public disclosure.
 
 ---
 
-**Made with 🔐 for Privacy and Security**
+**Made with security in mind for Privacy and Protection**
 
 *Encrypt your data. Protect your privacy. Stay secure.*
 
-**⚡ Now with multithreaded steganography for blazing-fast performance!**
+**Now with multithreaded steganography for blazing-fast performance!**

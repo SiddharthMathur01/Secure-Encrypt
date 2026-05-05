@@ -6,3 +6,4 @@ numpy
 dropbox
 requests
 zxcvbn
+gunicorn
